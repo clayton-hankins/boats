@@ -364,12 +364,30 @@ Results in:
 
 
 ##### routePermission
-Adds a configurable prefix to the `uniqueOpId` [helper](#uniqueOpId), allowing for method-based permissions for access control:
+Adds a configurable prefix to the `uniqueOpId` [helper](#uniqueOpId), allowing for method-based permissions for access control.
+
+`weather/post.yml` would result in `createWeatherPost`:
 ```yaml
 tags:
   - <$ autoTag() $>
 description: List all users
-x-auth-permission: <$ routePermission() $>
+x-permission: <$ routePermission() $>
+```
+
+You should name the attribute something that fits your generator, `x-permission: ...` is configured to work with [generate-it's](https://www.npmjs.com/package/generate-it) typescript [express server templates](https://github.com/acrontum/openapi-nodegen-typescript-server/blob/master/src/http/nodegen/routes/___op.ts.njk#L28). 
+
+You may also instruct the helper to strip out the method, turning `weather/post.yml` into `createWeather`:
+```
+x-permission: <$ routePermission({removeMethod: true}) $>
+```
+
+The method conversion defaults are:
+```
+get: 'read',
+post: 'create',
+put: 'update',
+patch: 'update',
+delete: 'delete',
 ```
 
 
