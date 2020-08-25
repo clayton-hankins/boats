@@ -390,6 +390,7 @@ patch: 'update',
 delete: 'delete',
 ```
 
+Of course, you can remote control the injection of the permissions to all routes from the [inject helper](#inject).
 
 #### Custom template functions (your own)
 It is possible to inject your own helper functions into the Nunjucks tpl engine. For example, you may wish to inject your own helper function that would automatically inject the package.json version number (bad example as you could use the above builtin function, but you get the idea) into the OpenAPI index file. This is how it would be done:
