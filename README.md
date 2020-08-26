@@ -188,6 +188,7 @@ If you have an older set of BOATS files then you might have named the model file
 ##### inject
 
 The inject helper allows you to inject content to many operations from a single block.
+
 Anatomy of the injection:
 ```yaml
 {{
@@ -199,13 +200,19 @@ Anatomy of the injection:
             apiKey: []            # below.
           }]
         },
-        exclude: [                # Optional - string array containing channels
-          '/user_messages'        # to exclude (exact match)
+        excludeChannel: [         # Optional - string array containing channels
+          '/user_messages/**'     # to exclude (parsed with https://github.com/micromatch/picomatch)
           '/system_information'
         ],
+        includeOnlyChannels: [    # Optional - string array containing channels
+          '/admin/**'             # only include these channels (parsed with https://github.com/micromatch/picomatch)
+        ],
         excludePaths: [           # Optional - string array containing paths
-          '/users',               # to exclude (exact match)
+          '/users',               # to exclude (parsed with https://github.com/micromatch/picomatch)
           '/admin/:adminId'
+        ],
+        includeOnlyPaths: [       # Optional - string array containing channels
+          '/admin/**'             # only include these paths (parsed with https://github.com/micromatch/picomatch)
         ],
         includeMethods: [         # Optional - string array containing method
           'post',                 # whitelist (default is all methods)
