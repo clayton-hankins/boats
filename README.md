@@ -120,7 +120,7 @@ Example:
       "commentEnd": "#]"
     }
   },
-  "jsonSchemaRefParserBundleOpts": {},
+  "jsonSchemaRefParserBundleOpts": {  },
   "permissionConfig": {
     "routePrefix": {
       "get": "read",
@@ -129,6 +129,9 @@ Example:
       "patch": "update",
       "delete": "delete"
     }
+  },
+  "picomatchOptions": {
+    "bash": true
   }
 }
 ```
@@ -188,6 +191,13 @@ If you have an older set of BOATS files then you might have named the model file
 ##### inject
 
 The inject helper allows you to inject content to many operations from a single block.
+
+Path maching is handled via [picomatch](https://github.com/micromatch/picomatch#picomatch-options), you are able to inject your own options via the `.boatsrc` file. The default options are
+```
+  "picomatchOptions": {
+    "bash": true
+  },
+```
 
 Anatomy of the injection:
 ```yaml
