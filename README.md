@@ -379,7 +379,7 @@ The following path:
 Results in:
 `Temperature`
 
-###### optionalProps
+##### optionalProps
 
 Allows inheritance from a referenced object definition but makes all properties optional, i.e, it drops the required object prop.
 
