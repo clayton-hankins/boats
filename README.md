@@ -452,9 +452,25 @@ x-permission: <$ routePermission() $>
 
 You should name the attribute something that fits your generator, `x-permission: ...` is configured to work with [generate-it's](https://www.npmjs.com/package/generate-it) typescript [express server templates](https://github.com/acrontum/openapi-nodegen-typescript-server/blob/master/src/http/nodegen/routes/___op.ts.njk#L28). 
 
-You may also instruct the helper to strip out the method, turning `weather/post.yml` into `createWeather`:
+You may also:
+ - Instruct the helper to strip out the method, turning `weather/post.yml` into `createWeather`.
+ - Add a custom tail string to the output
+ - Add a custom prefix to the start of the output
+
+Here is a kitchen sink example:
 ```
-x-permission: <$ routePermission({removeMethod: true}) $>
+{% set prefix = packageJson("name") %}
+{% set tail = 'wags' %}
+{{
+  inject([{
+    toAllOperations: {
+      includeOnlyPaths: ['/admin/**'],
+      content: {
+        'x-permission': '{{ routePermission( {prefix: \''+ prefix +'\', removeMethod: true, tail: \''+ tail +'\'} ) }}'
+      }
+    }
+  }])
+}}
 ```
 
 The method conversion defaults are:
