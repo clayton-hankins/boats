@@ -76,6 +76,28 @@ When building pass the `-d` or `--dereference` option and the compiled swagger d
 ### Validation
 Errors are output to the console.
 
+### .boatsrc
+You can pass in options to BOATS via a `.boatsrc` file containing valid json. This is how you can control the nunjucks engine, eg [Nunjucks customer-syntax](https://mozilla.github.io/nunjucks/api.html#customizing-syntax). All nunjucks options found here will be merged into the default options.
+
+A `.boatsrc` file should be a JSON representation of this interface:
+- https://github.com/johndcarmichael/boats/blob/master/src/interfaces/BoatsRc.ts
+
+- `nunjucksOptions` overwrite the default nunjucks options eg the tag delimiters.
+- `permissionConfig` option will override how the `routePermission` [helper](#routePermission) prefixes routes (the default settings are shown above).
+  - `usePackageJsonNameAsPrefix` defaults to true and prefixes a perm with the package.json name
+  - `permissionStyle` the overall permission style, defaults to camelCase
+  - `permissionSegmentStyle` the segment string style, defaults to camelCase (even when the main style is something else)
+
+TIP: If you use the `.yml.njk`, you will want to just use the default tags from nunjucks (which may help IDE syntax highlighting). You can do this by removing the `nunjucksOptions` or by un-setting `nunjucksOptions.tags`:
+```json
+{
+  "nunjucksOptions": {
+    "tags": {}
+  }
+}
+```
+This will use the default template tags as show [in their docs](https://mozilla.github.io/nunjucks/templating.html).
+
 ### Templating
 As Nunjucks is used as the tpl engine, this means if you use a smart IDE such as intellij you are able to utilize the syntax highlight of both yml and njk.
 
@@ -102,54 +124,6 @@ Adding the .njk extension allows your ide to lay on nice syntax highlighting (fo
 Adding the `.yml.njk` allows the ide to easily use the yaml and nunjucks highlighting in 1 which is pretty cool.
 
 Additionally, when using the `.yml.njk` ext you will also want to back back to the default njk tags by not setting any tags in your `.boatsrc` file
-
-
-#### .boatsrc
-You can pass in options to BOATS via a `.boatsrc` file containing valid json. This is how you can control the nunjucks engine, eg [Nunjucks customer-syntax](https://mozilla.github.io/nunjucks/api.html#customizing-syntax). All nunjucks options found here will be merged into the default options.
-
-Example:
-```json
-{
-  "nunjucksOptions": {
-    "tags": {
-      "blockStart": "[%",
-      "blockEnd": "%]",
-      "variableStart": "[[",
-      "variableEnd": "]]",
-      "commentStart": "[#",
-      "commentEnd": "#]"
-    }
-  },
-  "jsonSchemaRefParserBundleOpts": {  },
-  "permissionConfig": {
-    "routePrefix": {
-      "get": "read",
-      "post": "create",
-      "put": "update",
-      "patch": "update",
-      "delete": "delete"
-    }
-  },
-  "picomatchOptions": {
-    "bash": true
-  }
-}
-```
-
-The `nunjucksOptions` section can overwrite the default nunjucks tag delimiters.
-THe `permissionConfig` option will override how the `routePermission` [helper](#routePermission) prefixes routes (the default settings are shown above).
-All config options are optional.
-
-If you use the `.yml.njk`, you will want to just use the default tags from nunjucks (which may help IDE syntax highlighting). You can do this by removing the `nunjucksOptions` or by un-setting `nunjucksOptions.tags`:
-```json
-{
-  "nunjucksOptions": {
-    "tags": {}
-  }
-}
-```
-This will use the default template tags as show [in their docs](https://mozilla.github.io/nunjucks/templating.html).
-
 
 
 #### Template functions built in
