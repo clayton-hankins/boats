@@ -1,6 +1,6 @@
-# BOATS
+![Boats](images/boats-510x162.png)
 
-Beautiful Open / Async Template System
+An OpenAPI & AsyncAPI templating system with Nunjucks... write less YAML... do more.
 
 ## Summary
 
