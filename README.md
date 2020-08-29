@@ -102,6 +102,30 @@ TIP: If you use the `.yml.njk`, you will want to just use the default tags from 
 ```
 This will use the default template tags as show [in their docs](https://mozilla.github.io/nunjucks/templating.html).
 
+### CLI features
+BOATS can be used as a cli tool via an npm script.
+
+The available arguments are best [read from the source](https://github.com/johndcarmichael/boats/blob/master/src/commander.ts).
+
+Example package.json script
+```
+"boats": "boats"
+"build:yml": "boats -i ./src/index.yml -o ./build/api.yml"
+```
+
+If you have an existing repository with .yml files and want to convert to .yml.njk you can convert all the file extensions, and the references with one command:
+```
+npm run boats -- --convert_to_njk ./src
+```
+
+To convert all back to yml:
+```
+npm run boats -- --convert_to_yml ./src
+```
+
+### Programmatic Use
+You can also use BOATS programmatically, just require (import if you are using a bundler) the lib into your project.
+
 ### Templating
 As Nunjucks is used as the tpl engine, this means if you use a smart IDE such as intellij you are able to utilize the syntax highlight of both yml and njk.
 
@@ -514,58 +538,6 @@ url: <$ host $>
 ```
 
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
-
-### CLI features
-BOATS can be used as a cli tool via an npm script eg:
-
-package.json script
-```
-"build:yml": "boats -i ./src/index.yml -o ./build/api.yml
-```
-
-cli command:
-```
-npm run build:yml
-```
-
-#### Switch extension types with a single command
-If you have an existing repository with .yml files and want to convert to .yml.njk you can convert all the file extensions, and the references with one command:
-```
-npm run boats -- --convert_to_njk ./src
-```
-
-To convert all back to yml:
-```
-npm run boats -- --convert_to_yml ./src
-```
-
-#### Available commands
-
----
-
-Available commands (possible by [commander](https://www.npmjs.com/package/commander)):
-```
-Usage: boats [options]
-
-Options:
-  --init                      Inject a skeleton yml structure to the current directory named /src/...
-  -i, --input [path]          The relative path to the main input file eg "./src/index.yml"
-  -o, --output [path]         The relative path to the main output file eg "./built/bundled.yml"
-                              (if json_refs is not used the output directory will also contain the compiled tpl files)
-  -x, --exclude_version       By default the OA version is injected into the file name, this option stops this happening.
-  -d, --dereference           Will pass the output via https://apitools.dev/swagger-parser/docs/swagger-parser.html#dereferenceapi-options-callback
-  -I, --indentation <indent>  The numeric indentation, defaults to 2 if option passed (default: 2)
-  -s, --strip_value [strip]   The value removed from during creation of the uniqueOpId tpl function, defaults to "src/paths/"
-  -t, --type [type]           The validator type, asyncapi or openapi, default is openapi
-  -v --validate <state>       Validate OA 2/3 state "on" or "off". Defaults to "on" (default: "on")
-  -$, --variables [value]     Array of variables to pass to the templates, eg "-$ host=http://somehost.com -$ apikey=321654987" (default: [])
-  -V, --version               output the version number
-  -h, --help                  output usage information
-```
----
-
-### Programmatic Use
-You can also use BOATS programmatically, just require (import if you are using a bundler) the lib into your project.
 
 ### Deprecated
 If you were using the pre 1.0.0 release, sorry, but we the json-refs bundler was dropped.
