@@ -82,9 +82,12 @@ You can pass in options to BOATS via a `.boatsrc` file containing valid json. Th
 A `.boatsrc` file should be a JSON representation of this interface:
 - https://github.com/johndcarmichael/boats/blob/master/src/interfaces/BoatsRc.ts
 
-- `nunjucksOptions` overwrite the default nunjucks options eg the tag delimiters.
-- `permissionConfig` option will override how the `routePermission` [helper](#routePermission) prefixes routes (the default settings are shown above).
-  - `usePackageJsonNameAsPrefix` defaults to true and prefixes a perm with the package.json name
+- `nunjucksOptions` Overwrite the default nunjucks options eg the tag delimiters
+- `jsonSchemaRefParserBundleOpts` Inject your own [jsonSchemaRefParserBundle](https://apitools.dev/json-schema-ref-parser/docs/options.html)
+- `permissionConfig` Option will override how the `routePermission` [helper](#routePermission) prefixes routes (the default settings are shown above)
+  - `methodAlias` An object of method alias overrides, please see the interface for the default options
+  - `methodAliasPosition` Place the alias (default behavior) after the global prefix (if present) or at the end of the permission string
+  - `globalPrefix` defaults to true (prefix perms with the package.json name) else false for no prefix or a simple string for a custom prefix
   - `permissionStyle` the overall permission style, defaults to camelCase
   - `permissionSegmentStyle` the segment string style, defaults to camelCase (even when the main style is something else)
 
