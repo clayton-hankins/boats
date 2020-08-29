@@ -87,9 +87,10 @@ A `.boatsrc` file should be a JSON representation of this interface:
 - `permissionConfig` Option will override how the `routePermission` [helper](#routePermission) prefixes routes (the default settings are shown above)
   - `methodAlias` An object of method alias overrides, please see the interface for the default options
   - `methodAliasPosition` Place the alias (default behavior) after the global prefix (if present) or at the end of the permission string
-  - `globalPrefix` defaults to true (prefix perms with the package.json name) else false for no prefix or a simple string for a custom prefix
-  - `permissionStyle` the overall permission style, defaults to camelCase
-  - `permissionSegmentStyle` the segment string style, defaults to camelCase (even when the main style is something else)
+  - `globalPrefix` Defaults to true (prefix perms with the package.json name) else false for no prefix or a simple string for a custom prefix
+  - `permissionStyle` The overall permission style, defaults to camelCase
+  - `permissionSegmentStyle` The segment string style, defaults to camelCase (even when the main style is something else)
+- `picomatchOptions` An object of [picomatch#options](https://github.com/micromatch/picomatch#options)
 
 TIP: If you use the `.yml.njk`, you will want to just use the default tags from nunjucks (which may help IDE syntax highlighting). You can do this by removing the `nunjucksOptions` or by un-setting `nunjucksOptions.tags`:
 ```json
