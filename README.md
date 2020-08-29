@@ -133,15 +133,11 @@ If you have not used [Nunjucks](https://www.npmjs.com/package/nunjucks) before, 
 TIP: The tpl helpers and the examples in this repo all use the [default nunjucks helpers](https://mozilla.github.io/nunjucks/templating.html).
 
 ### File ext.
-You may use `.yaml` or `.yml`.
-
-You may also use, since version 1.50, the nunjucks extension, but only on .yml (not .yaml), eg: `something.yml.njk`.
-
+You may use `.yaml` or `.yml` or the `.njk` file extension. 
 Adding the .njk extension allows your ide to lay on nice syntax highlighting (for jetbrains, just add *.njk to the Twig mapping in you settings for file types).
+You can switch from yml to njk via cli arguments. 
 
-Adding the `.yml.njk` allows the ide to easily use the yaml and nunjucks highlighting in 1 which is pretty cool.
-
-Additionally, when using the `.yml.njk` ext you will also want to back back to the default njk tags by not setting any tags in your `.boatsrc` file
+There is an issue still with the `.njk` ext in that a reference to a file in another project on disk via `...yml.njk` will break as BOATS removes `.njk` after running through the nunjucks tpl engine.
 
 ### Auto Index Files
 In async/swagger/openapi the channels/paths require an index file to register the routes.
@@ -523,7 +519,7 @@ url: <$ host $>
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
 
 ## Changelog
-- 2020/08/29 2.0.0:  (to be released) Route permissions will not auto inject a namespace by default, this is a breaking change from v1 behaviour 
+- 2020/08/29 2.0.0:  (to be released) Route permissions will auto inject a namespace by default, this is a breaking change from v1 behaviour. To prevent set globalPrefix to false 
 - 2020/08/28 1.25.4: Rollback to 1.24.1 to revert the breaking change
 - 2020/08/28 1.25.0: A breaking change was released to live, sorry
 - 2020/08/27 1.24.0: feat: Add `-y`, `--yes` option to skip remote version check
