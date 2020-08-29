@@ -18,19 +18,7 @@ An AsyncAPI/OpenAPI preprocessor tool with an aim to writer "DRY'er" source yaml
 
 Point boats at an entry index file and let it compile the rest automatically, either AsyncApi, OpenAPI or Swagger
 
-## Features
-
----
-
-BOATS ships with a few features described below.
-> Tip! Add boats as an npm script for easy cli access:
-```json
-"scripts": {
-  "boats": "boats",
-  ...
-```
-
-### Getting started
+## Getting started
 Want to just see a demo up and running on your machine with no real effort... You can initialize a project via the init command. The net result will be:
  - Swagger2.0 or OpenAPI3 example files injected into your current project within a folder named src
  - Build scripts for JSON and YAML added to your package.json file for CLI use.
@@ -57,7 +45,7 @@ Want to start with a bare bones repo then just install and add these scripts to 
 }
 ```
 
-### json-schema-ref-parser bundle and options
+## json-schema-ref-parser bundle and options
 
 All openapi content is run through the bundle function found in https://github.com/APIDevTools/json-schema-ref-parser
 
@@ -70,13 +58,13 @@ In boats, you are able to pass these options in via 3 methods:
 
 The options passed in should be valid [bundle function](https://github.com/APIDevTools/json-schema-ref-parser/blob/master/lib/bundle.js) options.
 
-### Dereference the output
+## Dereference the output
 When building pass the `-d` or `--dereference` option and the compiled swagger document will be passed via the [dereference](https://apitools.dev/swagger-parser/docs/swagger-parser.html#dereferenceapi-options-callback) method to fully dereference document. Helpful for when working with the likes of AWS for example.
 
-### Validation
+## Validation
 Errors are output to the console.
 
-### .boatsrc
+## .boatsrc
 You can pass in options to BOATS via a `.boatsrc` file containing valid json. This is how you can control the nunjucks engine, eg [Nunjucks customer-syntax](https://mozilla.github.io/nunjucks/api.html#customizing-syntax). All nunjucks options found here will be merged into the default options.
 
 A `.boatsrc` file should be a JSON representation of this interface:
@@ -102,7 +90,7 @@ TIP: If you use the `.yml.njk`, you will want to just use the default tags from 
 ```
 This will use the default template tags as show [in their docs](https://mozilla.github.io/nunjucks/templating.html).
 
-### CLI features
+## CLI features
 BOATS can be used as a cli tool via an npm script.
 
 The available arguments are best [read from the source](https://github.com/johndcarmichael/boats/blob/master/src/commander.ts).
@@ -123,10 +111,10 @@ To convert all back to yml:
 npm run boats -- --convert_to_yml ./src
 ```
 
-### Programmatic Use
+## Programmatic Use
 You can also use BOATS programmatically, just require (import if you are using a bundler) the lib into your project.
 
-### Templating
+## Templating
 As Nunjucks is used as the tpl engine, this means if you use a smart IDE such as intellij you are able to utilize the syntax highlight of both yml and njk.
 
 If you come from a PHP world you will already be used to this with Twig, Blade or even back in the day with Smarty. These you will be used to viewing proper html syntax highlighting but at the same time good function/condition highlighting that the tpl engine offers.
@@ -142,7 +130,9 @@ BOATS ships with two helpful functions, `mixin` and `uniqueOpId`, but your also 
 
 If you have not used [Nunjucks](https://www.npmjs.com/package/nunjucks) before, it is very similar to the Twig, Blade and Django templating language.
 
-#### File ext.
+TIP: The tpl helpers and the examples in this repo all use the [default nunjucks helpers](https://mozilla.github.io/nunjucks/templating.html).
+
+### File ext.
 You may use `.yaml` or `.yml`.
 
 You may also use, since version 1.50, the nunjucks extension, but only on .yml (not .yaml), eg: `something.yml.njk`.
@@ -153,12 +143,7 @@ Adding the `.yml.njk` allows the ide to easily use the yaml and nunjucks highlig
 
 Additionally, when using the `.yml.njk` ext you will also want to back back to the default njk tags by not setting any tags in your `.boatsrc` file
 
-
-#### Template functions built in
-
-TIP: The tpl helpers and the examples in this repo all use the [default nunjucks helpers](https://mozilla.github.io/nunjucks/templating.html).
-
-##### Auto Index Files
+### Auto Index Files
 In async/swagger/openapi the channels/paths require an index file to register the routes.
 By the way [json-schema-ref-parser](https://www.npmjs.com/package/json-schema-ref-parser), unless you create an index file then the references to component/definitions will not look pretty and easily break other tools.
 Maintaining these index files is quite a monotonous chore, and very human error prone.
@@ -188,9 +173,7 @@ If you have an older set of BOATS files then you might have named the model file
 {{ autoComponentIndexer('Model') }}
 ```
 
-
-
-##### inject
+### inject
 
 The inject helper allows you to inject content to many operations from a single block.
 
@@ -310,7 +293,7 @@ Content is either a JSON representation of the YAML content to inject, or a stri
 
 Type less do more.
 
-##### mixin
+### mixin
 Example use:
 ```yaml
 Weathers: mixin("../../mixins/pagination.yml", "#/components/schemas/GenericSearchMeta", "#/components/schemas/Weather")
@@ -331,7 +314,7 @@ The mixin will automatically calculate indents. If you use a mixin for plural mo
 
 In most cases the additional indentation which not break anything, but if a clean partial output file is required...
 
-##### packageJson
+### packageJson
 Example use:
 ```yaml
 openapi: "3.0.0"
@@ -341,7 +324,7 @@ info:
 
 Returns the value of an expected attribute to be found in your `package.json` or throws an error.
 
-##### uniqueOpId
+### uniqueOpId
 Example use:
 ```yaml
 tags:
@@ -364,7 +347,7 @@ Each segment of the path is run through [camelcase](https://github.com/sindresor
 
 This is especially helpful for API generators eg: codegen
 
-##### autoTag
+### autoTag
 Calculates the tag based on the location of the file in the folder structure:
 ```yaml
 tags:
@@ -381,7 +364,7 @@ The following path:
 Results in:
 `Temperature`
 
-##### optionalProps
+### optionalProps
 
 Allows inheritance from a referenced object definition but makes all properties optional, i.e, it drops the required object prop.
 
@@ -441,7 +424,7 @@ properties:
       type: string
 ```
 
-##### routePermission
+### routePermission
 Adds a configurable prefix to the `uniqueOpId` [helper](#uniqueOpId), allowing for method-based permissions for access control.
 
 `weather/post.yml` would result in `createWeatherPost`:
@@ -486,7 +469,7 @@ delete: 'delete',
 
 Of course, you can remote control the injection of the permissions to all routes from the [inject helper](#inject).
 
-#### Custom template functions (your own)
+### Custom template functions (your own)
 It is possible to inject your own helper functions into the Nunjucks tpl engine. For example, you may wish to inject your own helper function that would automatically inject the package.json version number (bad example as you could use the above builtin function, but you get the idea) into the OpenAPI index file. This is how it would be done:
 
 Pass to the cli tool a helper function path. The path should be relative to your entry point, typically where your `package.json` lives:
@@ -513,7 +496,7 @@ info:
  - A helper function should use the `function` keyword declaration to gain access to the nunjucks context.
  - The name of the helper file will be the name of the function, non-alphanumeric (and _) characters will be stripped.
 
-#### Process Environment Variables
+### Process Environment Variables
 During automated build chains it is not uncommon for api keys and dynamic URIs to be injected into the outputted OpenAPI files, this is common with AWS's cloud formation when used with dynamic containers.
 
 To accommodate this, all `process.env` variables are exposed in read-only format to the templates.
@@ -524,7 +507,7 @@ If a `.env` file is found at the root of your project then this will be parsed b
 
 > !Tip: Do not add the .env file to your git repo, this is only for development purposes, read the [dotenv](https://www.npmjs.com/package/dotenv) docs. Your CI tool should use proper env variables during a build chain.
 
-#### Variables
+### Variables
 In addition to Nunjucks ability to set variables within template files: https://mozilla.github.io/nunjucks/templating.html#set
 
 You can also pass in custom variables to your templates with the --variables option:
@@ -538,9 +521,6 @@ url: <$ host $>
 ```
 
 > !Tip: These variables will override any variables injected into the tpl engine from the `process.env`
-
-### Deprecated
-If you were using the pre 1.0.0 release, sorry, but we the json-refs bundler was dropped.
 
 ## Changelog
 - 2020/08/29 2.0.0:  (to be released) Route permissions will not auto inject a namespace by default, this is a breaking change from v1 behaviour 
