@@ -567,6 +567,9 @@ You can also use BOATS programmatically, just require (import if you are using a
 If you were using the pre 1.0.0 release, sorry, but we the json-refs bundler was dropped.
 
 ## Changelog
+- 2020/08/29 2.0.0:  (to be released) Route permissions will not auto inject a namespace by default, this is a breaking change from v1 behaviour 
+- 2020/08/28 1.25.4: Rollback to 1.24.1 to revert the breaking change
+- 2020/08/28 1.25.0: A breaking change was released to live, sorry
 - 2020/08/27 1.24.0: feat: Add `-y`, `--yes` option to skip remote version check
 - 2020/08/26 1.23.0: feat: Add prefix to permissions `{{ routePermission({prefix: 'ms-authentication', removeMethod: true}) }}`
 - 2020/08/26 1.22.0: feat: tpl helper [optionalProps](https://johndcarmichael.github.io/boats/#/?id=optionalprops) added AND [glob pattern matching for the injector](https://johndcarmichael.github.io/boats/#/?id=inject), aka wildcards
