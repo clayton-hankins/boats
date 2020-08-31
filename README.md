@@ -65,6 +65,9 @@ When building pass the `-d` or `--dereference` option and the compiled swagger d
 Errors are output to the console.
 
 ## .boatsrc
+
+> TIP! The 2.0.0-rc1.1 release is on branch develop github - all links to the source point to master, make you sure switch
+
 You can pass in options to BOATS via a `.boatsrc` file containing valid json. This is how you can control the nunjucks engine, eg [Nunjucks customer-syntax](https://mozilla.github.io/nunjucks/api.html#customizing-syntax). All nunjucks options found here will be merged into the default options.
 
 A `.boatsrc` file should be a JSON representation of this interface:
